@@ -1,0 +1,77 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  if Vagrant.has_plugin? "vagrant-vbguest"
+    config.vbguest.no_install  = true
+    config.vbguest.auto_update = false
+    config.vbguest.no_remote   = true
+  end
+
+  config.vm.define :servidor do |servidor|
+    servidor.vm.box = "bento/ubuntu-22.04"
+    servidor.vm.box_download_insecure = true
+    servidor.vm.network :private_network, ip: "192.168.100.2"
+    servidor.vm.hostname = "servidor"
+    servidor.vm.provision "shell", path: "script.sh"
+    servidor.vm.boot_timeout = 600
+    servidor.vm.provider "virtualbox" do |v|
+    servidor.vm.synced_folder 'C:\Users\prado\OneDrive\Escritorio\Microproyecto1\configuraciones', '/home/vagrant/'
+        v.cpus = 2
+        v.memory = 1024
+    end
+  end
+
+  config.vm.define :servicio1 do |servicio1|
+    servicio1.vm.box = "bento/ubuntu-22.04"
+    servicio1.vm.box_download_insecure = true
+    servicio1.vm.network :private_network, ip: "192.168.100.3"
+    servicio1.vm.hostname = "servicio1"
+    servicio1.vm.provision "shell", path: "script.sh"
+    servicio1.vm.synced_folder 'C:\Users\prado\OneDrive\Escritorio\Microproyecto1\configuraciones', '/home/vagrant/'
+    servicio1.vm.provider "virtualbox" do |v|
+        v.cpus = 2
+        v.memory = 1024
+    end
+  end
+
+  config.vm.define :servicio2 do |servicio2|
+    servicio2.vm.box = "bento/ubuntu-22.04"
+    servicio2.vm.box_download_insecure = true
+    servicio2.vm.network :private_network, ip: "192.168.100.4"
+    servicio2.vm.hostname = "servicio2"
+    servicio2.vm.provision "shell", path: "script.sh"
+    servicio2.vm.synced_folder 'C:\Users\prado\OneDrive\Escritorio\Microproyecto1\configuraciones', '/home/vagrant/'
+    servicio2.vm.provider "virtualbox" do |v|
+        v.cpus = 2
+        v.memory = 1024
+    end
+  end
+
+  config.vm.define :servicio3 do |servicio3|
+    servicio3.vm.box = "bento/ubuntu-22.04"
+    servicio3.vm.box_download_insecure = true
+    servicio3.vm.network :private_network, ip: "192.168.100.5"
+    servicio3.vm.hostname = "servicio3"
+    servicio3.vm.provision "shell", path: "script.sh"
+    servicio3.vm.synced_folder 'C:\Users\prado\OneDrive\Escritorio\Microproyecto1\configuraciones', '/home/vagrant/'
+    servicio3.vm.provider "virtualbox" do |v|
+        v.cpus = 2
+        v.memory = 1024
+    end
+  end
+
+  config.vm.define :servidorCarga do |servidorCarga|
+    servidorCarga.vm.box = "bento/ubuntu-22.04"
+    servidorCarga.vm.box_download_insecure = true
+    servidorCarga.vm.network :private_network, ip: "192.168.100.6"
+    servidorCarga.vm.hostname = "servidorCarga"
+    servidorCarga.vm.provision "shell", path: "script1.sh"
+    servidorCarga.vm.synced_folder 'C:\Users\prado\OneDrive\Escritorio\Microproyecto1\configuraciones', '/home/vagrant/'
+    servidorCarga.vm.provider "virtualbox" do |v|
+        v.cpus = 2
+        v.memory = 1024
+    end
+  end
+end
